@@ -8,6 +8,7 @@ import HandleError from '../../error/containers/handle-error'
 import RegularError from '../../error/components/regular-error'
 import VideoPlayer from '../../player/containers/video-player'
 import { connect } from 'react-redux'
+import Category from '../../categories/components/category';
 
 class Home extends Component {
 
@@ -56,9 +57,15 @@ class Home extends Component {
   }
 }
 function mapStateToProps(state,props){
+
+  const categories = state.get('data').get('categories').map( categoryId => {
+    return state.get('data').get('entities').get('categories').get(categoryId)
+  })
+
     return {
-      categories: state.data.categories,
-      search: state.search
+      // categories: state.data.categories,
+      categories: categories,
+      search: state.get('data').get('search')
     }
 }
 export default connect(mapStateToProps)(Home)

@@ -12,15 +12,15 @@ function Categories(props) {
       {
         props.search.map( item => 
           <Media 
-            { ...item } 
-            key={item.id} 
+            { ...item.toJS() } 
+            key={item.get('id')} 
           />
         )
       }
       {
         props.categories.map(item=>
-          <Category { ...item }
-            key={ item.id }
+          <Category { ...item.toJS() }
+            key={ item.get('id') }
             handleOpenModal={ props.handleOpenModal }
           />
         )
