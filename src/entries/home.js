@@ -7,6 +7,7 @@ import Home from '../pages/containers/home';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer  from '../reducers/data';
+import normalizedData from '../schemas/index'
 
 const initialState = {
     data: {
@@ -14,7 +15,8 @@ const initialState = {
     },
     search:[]
 }
-
+console.dir(data)
+console.dir(normalizedData)
 const store = createStore(
     reducer,// reducer
     initialState, // initialState
