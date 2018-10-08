@@ -23,3 +23,22 @@ export function closeModal (mediaId) {
       }
     } 
  } 
+
+ export function searchAsyncEntities (query) {
+  return (dispatch) => {
+    dispatch(isLoading(true))
+    setTimeout(()=>{
+      dispatch(isLoading(false))
+      dispatch(searchEntities(query))
+    }, 5000)
+  } 
+} 
+
+export function isLoading( value ){
+  return {
+    type: AT.IS_LOADING,
+    payload: {
+      value
+    } 
+  }
+}

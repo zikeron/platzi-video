@@ -7,6 +7,7 @@ import reducer  from '../reducers/index';
 import { Map as map } from 'immutable';
 import logger from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
 
 // const logger = ({getState, dispatch}) => next => action =>{
 //     console.log('este es mi estado viejo', getState().toJS())
@@ -21,7 +22,10 @@ const store = createStore(
     map(), // initialState
     // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() //enhacer
     composeWithDevTools(
-        applyMiddleware(logger)
+        applyMiddleware(
+            logger,
+            thunk
+            )
     )
 );
 
