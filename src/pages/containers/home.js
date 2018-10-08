@@ -5,48 +5,47 @@ import Related from '../components/related'
 import ModalContainer from '../../widgets/containers/modal'
 import Modal from '../../widgets/components/modal'
 import HandleError from '../../error/containers/handle-error'
-import RegularError from '../../error/components/regular-error'
+// import RegularError from '../../error/components/regular-error'
 import VideoPlayer from '../../player/containers/video-player'
 import { connect } from 'react-redux'
-import Category from '../../categories/components/category';
+// import Category from '../../categories/components/category';
+import { List as list } from 'immutable';
 
 class Home extends Component {
 
-  state = {
-    modalVisible: false,
-  }
-
-  handleOpenModal = (media) => {
-    this.setState({
-      modalVisible: true,
-      media
+  handleOpenModal = (id) => {
+    this.props.dispatch({
+      type: 'OPEN_MODAL',
+      payload: {
+        mediaId: id
+      }
     })
   }
 
   handleCloseModal = (event) => {
-    this.setState({
-      modalVisible: false,
+    this.props.dispatch({
+      type: 'CLOSE_MODAL'
     })
   }
 
   render() {
-    return(
+    return (
       <HandleError>
         <HomeLayout>
           <Related />
           <Categories
-            categories={ this.props.categories }
-            handleOpenModal={ this.handleOpenModal }
-            search={ this.props.search }
+            categories={this.props.categories}
+            handleOpenModal={this.handleOpenModal}
+            search={this.props.search}
           />
           {
-            this.state.modalVisible &&
+            this.props.modal.get('visibility') &&
             <ModalContainer>
               <Modal
-                handleClick={ this.handleCloseModal }>
+                handleClick={this.handleCloseModal}>
                 <VideoPlayer autoplay={true}
-                  src={ this.state.media.src }
-                  title={ this.state.media.title }
+                  autoplay
+                  id={this.props.modal.get('mediaId')}
                 />
               </Modal>
             </ModalContainer>
@@ -56,16 +55,28 @@ class Home extends Component {
     )
   }
 }
-function mapStateToProps(state,props){
 
-  const categories = state.get('data').get('categories').map( categoryId => {
+function mapStateToProps(state, props) {
+
+  const categories = state.get('data').get('categories').map(categoryId => {
     return state.get('data').get('entities').get('categories').get(categoryId)
   })
 
-    return {
-      // categories: state.data.categories,
-      categories: categories,
-      search: state.get('data').get('search')
-    }
+  let searchResults = list()
+  const search = state.get('data').get('search');
+
+  if (search) {
+    const mediaList = state.get('data').get('entities').get('media');
+    searchResults = mediaList.filter((item) => (
+      item.get('author').toLowerCase().includes(search.toLowerCase())
+    )).toList();
+  }
+
+  return {
+    categories: categories,
+    search: searchResults,
+    modal: state.get('modal')
+  }
 }
+
 export default connect(mapStateToProps)(Home)

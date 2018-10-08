@@ -6,24 +6,20 @@ import Media from '../../playlist/components/media'
 
 
 function Categories(props) {
-  return(
+  return (
     <div className="Categories">
       <Search />
       {
-        props.search.map( item => 
-          <Media 
-            { ...item.toJS() } 
-            key={item.get('id')} 
-          />
-        )
+        props.search.map(item => {
+          return <Media openModal={props.handleOpenModal} {...item.toJS()} key={item.get('id')} />
+        })
       }
       {
-        props.categories.map(item=>
-          <Category { ...item.toJS() }
-            key={ item.get('id') }
-            handleOpenModal={ props.handleOpenModal }
-          />
-        )
+        props.categories.map(item => {
+          return (
+            <Category {...item.toJS()} key={item.get('id')} handleOpenModal={props.handleOpenModal} />
+          )
+        })
       }
     </div>
   )
