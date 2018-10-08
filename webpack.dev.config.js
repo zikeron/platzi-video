@@ -3,6 +3,7 @@ const path = require('path');
 module.exports = {
   entry: {
     "home": path.resolve(__dirname, 'src/entries/home.js'),
+    "redux": path.resolve(__dirname, 'src/entries/redux.js'),
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -37,7 +38,7 @@ module.exports = {
           options: {
             limit: 1000000,
             fallback: 'file-loader',
-            name: 'images/[name].[hash].[ext]',
+            name: 'images/[name].[ext]',
           }
         }
       },

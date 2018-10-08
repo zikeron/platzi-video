@@ -1,16 +1,21 @@
 import React, { Component } from 'react'
 import Search from '../components/search'
+import { connect } from 'react-redux'
+import * as actions from '../../actions/index'
+import  { bindActionCreators } from 'redux';
 
 
 class SearchContainer extends Component {
 
   state = {
-    value: 'Buscar'
+    value: ''
   }
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log(this.input.value, 'submit')
+    //console.log(this.input.value, 'submit')
+    this.props.actions.searchAsyncEntities(this.input.value);
+
   }
 
   setInputRef = elem => {
@@ -19,7 +24,7 @@ class SearchContainer extends Component {
 
   handleInputChange = event => {
     this.setState({
-      value: event.target.value.replace(' ','-'),
+      value: event.target.value,
     })
   }
 
@@ -34,4 +39,13 @@ class SearchContainer extends Component {
     )
   }
 }
-export default SearchContainer
+
+
+
+function mapDispatchToProps ( dispatch ) {
+  return{
+    actions: bindActionCreators(actions, dispatch)
+  }
+}
+
+export default connect(null,mapDispatchToProps)(SearchContainer)

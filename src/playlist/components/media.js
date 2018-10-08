@@ -19,8 +19,9 @@ class Media extends PureComponent
 
   // Hereda constructor con Arrow Function de ECMAScript 6
   handleClick = (event) => {
-    this.props.openModal(this.props)
+    this.props.openModal(this.props.id)
   }
+  
   render() {
     const { title, cover, type, author } = this.props
     const { stAuthor } = this.state
@@ -42,9 +43,9 @@ class Media extends PureComponent
             width={260}
             height={160}
           />
+        </div>
           <h3 className="Media-title">{ title }</h3>
           <p className="Media-author">{ stAuthor }</p>
-        </div>
       </div>
     )
   }

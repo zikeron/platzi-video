@@ -1,0 +1,31 @@
+1. Única fuente de verdad:
+El estado de toda tu aplicación esta almacenado en un árbol guardado en un único store lo que hace mas fácil el proceso de depuración.
+
+2. Solo Lectura:
+La única forma de modificar el estado es emitiendo una acción, un objeto que describe que ocurrió.
+
+3. Los cambios se realizan con funciones puras:
+Los reduces son funciones puras que toman el estado anterior y una acción, y devuelven un nuevo estado.
+
+
+Reducer => Función pura que retorna el próximo estado.
+PreloadState / InitialState => Es el estado inicial de la aplicación, la primera carga, el llamado a una data. Puede ser cualquier tipo de dato.
+Enhancer => Función que puede extender redux con capacidades añadidas por librerías externas. Es opcional. Eg. Añadir las dev-tools
+
+Reducer
+
+Modifican nuestro estado
+Puede haber múltiples reducers en la aplicación y un solo store.
+Devuelve el siguiente estado.
+Que no deben hacer
+
+Modificar los argumentos recibidos
+Llamar a APIs (u otras tareas secundarias)
+Llamar a funciones no puras como Date.now(), Math.random()
+
+<Funciones puras
+
+Es un concepto de programación funcional, hace que el código sea más legible. Tienen las siguientes condiciones:
+Dados los mismos datos de entrada, deben retornar el mismo resultado sin importar el número de veces que se llame.
+No debe tener objetos secundarios.
+El reducer se iguala a una función, esta función recibe dos parámetros que son el state y la action y en la función se debe definir que se hace con state y action; generalmente se valida con un switch.
