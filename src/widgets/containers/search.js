@@ -8,7 +8,8 @@ import  { bindActionCreators } from 'redux';
 class SearchContainer extends Component {
 
   state = {
-    value: ''
+    value: '',
+    prompt: false,
   }
 
   handleSubmit = event => {
@@ -25,6 +26,7 @@ class SearchContainer extends Component {
   handleInputChange = event => {
     this.setState({
       value: event.target.value,
+      prompt: !!(event.target.value.length),
     })
   }
 
@@ -35,6 +37,7 @@ class SearchContainer extends Component {
       handleSubmit={ this.handleSubmit }
       handleChange={ this.handleInputChange }
       value={ this.state.value }
+      prompt={this.state.prompt}
     />
     )
   }

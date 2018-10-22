@@ -1,12 +1,12 @@
 import React from 'react';
-import logo from '../../../images/logo.png'
+// import logo from '../../../images/logo.png'
 import './related.css'
 
 function Related(props){
   return(
     <div className="Realated">
       <img
-        src={logo}
+        // src={logo}
         width={250}
       />
     </div>
